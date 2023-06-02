@@ -167,5 +167,20 @@ public class Linked_list<T> implements linked_list_interface<T>, queue.queue_int
         }
         return size;
     }
+    @Override
+    public boolean isEmpty() {
+        boolean empty= false;
+        if(this.first==null){
+            empty=true;
+        }
+        return empty;
+    }
+    @Override
+    public T top() throws EmptyStackException {
+        if (this.last == null) {
+            throw new EmptyStackException();
+        }
+        return this.last.getValue();
+    }
 
 }
