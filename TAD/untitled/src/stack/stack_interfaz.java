@@ -5,5 +5,7 @@ public interface stack_interfaz <T> {
     T pop() throws EmptyStackException;
     T peek();
     int size();
+    boolean isEmpty();
+    T top() throws EmptyStackException;
 }
 
