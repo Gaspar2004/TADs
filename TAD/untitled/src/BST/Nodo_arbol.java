@@ -12,46 +12,11 @@ public class Nodo_arbol <K extends Comparable <K>, V> {
         this.value = value;
     }
 
-    public void add(K key, V value) {
-        Nodo_arbol<K, V> elemento_a_agregar = new Nodo_arbol<>(key, value);
-        if (key.compareTo(this.key) > 0) {
-            if (right == null) {
-                right = elemento_a_agregar;
-            } else {
-                right.add(key, value);
-            }
-        } else {
-            if (left == null) {
-                left = elemento_a_agregar;
-            } else {
-                left.add(key, value);
-            }
-        }}
-    public Nodo_arbol<K, V> remove(K key){
-            Nodo_arbol<K, V> elemento_a_retornar = this;
-            if (key.compareTo(this.key) > 0) {
-                if (right != null) {
-                    right = right.remove(key);
-                }
-            } else if (key.compareTo(this.key) < 0) {
-                if (left != null) {
-                    left = left.remove(key);
-
-                } else if (left != null && right != null) {
-                    Nodo_arbol<K, V> minimo = right.findMin();
-                    this.key = minimo.getKey();
-                    this.value = minimo.getValue();
-                    right = right.remove(this.key);
-                } else {
-                    if (left != null) {
-                        elemento_a_retornar = left;
-                    } else {
-                        elemento_a_retornar = right;
-                    }
-                }
-
-            }
-            return elemento_a_retornar;
+ 
+    public Nodo_arbol<K, V> remove(){
+            this.key=null;
+            return this;
+          
         }
 
     public void inOrder(linked_list_interface<K> lista) {
@@ -64,12 +29,12 @@ public class Nodo_arbol <K extends Comparable <K>, V> {
         }
     }
     public K getKey() {
-        return key;
+        return this.key;
     }
 
 
     public V getValue() {
-        return value;
+        return this.value;
     }
 
     public void setValue(V value) {
@@ -77,7 +42,7 @@ public class Nodo_arbol <K extends Comparable <K>, V> {
     }
 
     public Nodo_arbol<K, V> getLeft() {
-        return left;
+        return this.left;
     }
 
     public void setLeft(Nodo_arbol<K, V> left) {
@@ -85,18 +50,12 @@ public class Nodo_arbol <K extends Comparable <K>, V> {
     }
 
     public Nodo_arbol<K, V> getRight() {
-        return right;
+        return this.right;
     }
 
     public void setRight(Nodo_arbol<K, V> right) {
         this.right = right;
     }
-    public Nodo_arbol<K, V> findMin() {
-        Nodo_arbol<K, V> minimo = this;
-        if (left != null) {
-            minimo = left.findMin();
-        }
-        return minimo;
-    }
+    
 
 }

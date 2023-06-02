@@ -5,8 +5,8 @@ public interface BST_interfaz <K,T>{
     T find(K key);
     boolean contains(K key);
     void remove(K key);
-    T findMin();
-    T findMax();
+    K findMin();
+    K findMax();
     linked_list_interface<K> inOrder();
     //List<K> preOrder();
     //List<K> postOrder();
