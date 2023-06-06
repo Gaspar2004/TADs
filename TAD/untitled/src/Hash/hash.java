@@ -1,6 +1,6 @@
 package Hash;
 import java.util.Arrays;
-import java.util.LinkedList;
+import linked_list.Linked_list;
 
 public class hash<K,V> implements hash_interface<K,V> {
     V[] elems = null;
@@ -63,8 +63,8 @@ public class hash<K,V> implements hash_interface<K,V> {
 
 
     @Override
-    public LinkedList<V> values() {
-        LinkedList<V> values = new LinkedList<V>();
+    public Linked_list<V> values() {
+        Linked_list<V> values = new Linked_list<V>();
         for(int i=0; i<elems.length; i++){
             values.add((V) elems[i]);
         }
@@ -73,8 +73,8 @@ public class hash<K,V> implements hash_interface<K,V> {
     }
 
     @Override
-    public LinkedList<K> keys() {
-        LinkedList<K> keys = new LinkedList<K>();
+    public Linked_list<K> keys() {
+        Linked_list<K> keys = new Linked_list<K>();
         for(int i=0; i<elems.length; i++){
             keys.add((K) elems[i]);
         }

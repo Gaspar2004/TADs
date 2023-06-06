@@ -1,5 +1,5 @@
 package Hash;
-import java.util.LinkedList;
+import linked_list.Linked_list;
 
 public interface hash_interface<K,V> {
     void put(K key, V value);
@@ -8,6 +8,6 @@ public interface hash_interface<K,V> {
     boolean contains(K key);
     int size();
     boolean isEmpty();
-    LinkedList<K> keys();
-    LinkedList<V> values();
+    Linked_list<K> keys();
+    Linked_list<V> values();
 }
