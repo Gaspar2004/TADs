@@ -1,6 +1,4 @@
 package linked_list;
-import linked_list.Nodo;
-import linked_list.linked_list_interface;
 import queue.EmptyQueueException;
 import stack.EmptyStackException;
 
