@@ -1,104 +1,122 @@
 package Heap;
 
-import java.text.BreakIterator;
+public class heap<T extends Comparable<T>> implements heap_interfaz<T>{
+    private static final int cap = 2;
 
-import linked_list.linked_list_interface;
+	private int size; 
+	private T[] heap; 
+    private boolean esMin = true;
 
-public class heap{
-    private int[] Heap;
-	private int index;
-	private int size;
-
-
-	private int parent(int i) {
-		return (i - 1) / 2;
+	public heap() {
+	    this(true);
 	}
 
-	private int leftChild(int i) {
-		return (i * 2) + 1;
-	}
-
-	private int rightChild(int i) {
-		return (i * 2) + 2;
-	}
-
-	private boolean isLeaf(int i) {
-		if (rightChild(i) >= size || leftChild(i) >= size) {
-			return true;
-		}
-		return false;
-	}
-
-	public void insert(int element) {
-		if (index >= size) {
-			return;
-		}
-		Heap[index] = element;
-		int current = index;
-
-		while (Heap[current] < Heap[parent(current)]) {
-			swap(current, parent(current));
-			current = parent(current);
-		}
-		index++;
-	}
-
-	// removes and returns the minimum element from the heap
-	public int remove() {
-     // since its a min heap, so root = minimum
-		int popped = Heap[0];
-		Heap[0] = Heap[--index];
-		minHeapify(0);
-		return popped;
-	}
-
-	// heapify the node at i
-	private void minHeapify(int i) {
-	// If the node is a non-leaf node and any of its child is smaller
-		if (!isLeaf(i)) {
-			if (Heap[i] > Heap[leftChild(i)] ||
-                  Heap[i] > Heap[rightChild(i)]) {
-				if (Heap[leftChild(i)] < Heap[rightChild(i)]) {
-					swap(i, leftChild(i));
-					minHeapify(leftChild(i));
-				} else {
-					swap(i, rightChild(i));
-					minHeapify(rightChild(i));
-				}
-			}
-		}
-	}
-
-	// builds the min-heap using the minHeapify
-	public void minHeap() {
-		for (int i = (index - 1 / 2); i >= 1; i--) {
-			minHeapify(i);
-		}
-	}
-
-     // Function to print the contents of the heap
-	public void printHeap() {
-		for (int i = 0; i < (index / 2); i++) {
-			System.out.print("Parent : " + Heap[i]);
-			if (leftChild(i) < index)
-				System.out.print(" Left : " + Heap[leftChild(i)]);
-			if (rightChild(i) < index)
-				System.out.print(" Right :" + Heap[rightChild(i)]);
-			System.out.println();
-		}
-	}
-	// swaps two nodes of the heap
-	private void swap(int x, int y) {
-		int tmp;
-		tmp = Heap[x];
-		Heap[x] = Heap[y];
-		Heap[y] = tmp;
-	}
-
-    public int[] getHeap() {
-        return Heap;
+    public heap(boolean esMin) {
+        size = 0;
+        heap = (T[]) new Comparable[cap];
+        this.esMin = esMin;
     }
+
+	public heap(int cap) {
+	    this(cap, true);
+	}
+
+    public heap(int cap, boolean esMin) {
+        size = 0;
+        heap = (T[]) new Comparable[cap + 1];
+        this.esMin = esMin;
+	}
+
+
+	public heap(T[] array) {
+	    this(array, true);
+	}
+
+  
+    public heap(T[] array, boolean esMin) {
+        this.esMin = esMin;
+        size = array.length;
+        heap = (T[]) new Comparable[array.length + 1];
+
+        System.arraycopy(array, 0, heap, 1, array.length);// we do not use 0
+        // index
+
+        crearHeap();
+    }
+
+
+	
+	private void crearHeap() {
+		for (int k = size / 2; k > 0; k--) {
+			ordenarHeap(k);
+		}
+	}
+
+	private void ordenarHeap(int k) {
+		T aux = heap[k];
+		int min;
+		for (; 2 * k <= size; k = min) {
+			min = 2 * k;
+			if (min != size && (esMin ? heap[min].compareTo(heap[min + 1]) > 0 : !(heap[min].compareTo(heap[min + 1]) > 0)))
+				min++;
+			if (esMin ? aux.compareTo(heap[min]) > 0 : !(aux.compareTo(heap[min]) > 0))
+				heap[k] = heap[min];
+			else
+				break;
+		}
+		heap[k] = aux;
+	}
+
 	
 
+	public T delete() throws RuntimeException {
+		if (size == 0)
+			throw new RuntimeException();
+		T min = heap[1];
+		heap[1] = heap[size--];
+		ordenarHeap(1);
+		return min;
+	}
+	
+	@Override
+	public T get() {
+		if (size == 0)
+			throw new RuntimeException();
+		T min = heap[1];
+		return min;
+	}
 
+
+	public void insert(T x) {
+		if (size == heap.length - 1)
+			reajustar();
+
+		int pos = ++size;
+
+		for (; pos > 1 && (esMin ? x.compareTo(heap[pos / 2]) < 0 : !(x.compareTo(heap[pos / 2]) < 0)); pos = pos / 2)
+			heap[pos] = heap[pos / 2];
+
+		heap[pos] = x;
+	}
+
+	private void reajustar() {
+		T[] old = heap;
+		heap = (T[]) new Comparable[heap.length * 2];
+		System.arraycopy(old, 1, heap, 1, size);
+	}
+
+	public String toString() {
+		String ret = "";
+		for (int k = 1; k <= size; k++)
+			ret += heap[k] + " ";
+		return ret;
+	}
+
+	public int size() {
+		return size;
+	}
+
+
+
+	
 }

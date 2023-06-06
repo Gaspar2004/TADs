@@ -2,60 +2,58 @@ package Heap;
 import linked_list.Linked_list;
 import linked_list.linked_list_interface;
 public class Nodo_arbol <K extends Comparable <K>, V> {
-    private K key;
-    private V value;
-    private Nodo_arbol<K, V> left;
-    private Nodo_arbol<K, V> right;
+    private K k;
+    private V v;
+    private Nodo_arbol<K, V> izq;
+    private Nodo_arbol<K, V> der;
 
-    public Nodo_arbol(K key, V value) {
-        this.key = key;
-        this.value = value;
+    public Nodo_arbol(K k, V v) {
+        this.k = k;
+        this.v = v;
     }
 
  
     public Nodo_arbol<K, V> remove(){
-            this.key=null;
+            this.k=null;
             return this;
-          
         }
 
+    public K getk() {
+        return this.k;
+    }
+
+
+    public V getv() {
+        return this.v;
+    }
+
+    public void setv(V v) {
+        this.v = v;
+    }
+
+    public Nodo_arbol<K, V> getizq() {
+        return this.izq;
+    }
+
+    public void setizq(Nodo_arbol<K, V> izq) {
+        this.izq = izq;
+    }
+
+    public Nodo_arbol<K, V> getder() {
+        return this.der;
+    }
+
+    public void setder(Nodo_arbol<K, V> der) {
+        this.der = der;
+    }
     public void inOrder(linked_list_interface<K> lista) {
-        if (left != null) {
-            left.inOrder(lista);
+        if (izq != null) {
+            izq.inOrder(lista);
         }
-        lista.add(key);
-        if (right != null) {
-            right.inOrder(lista);
+        lista.add(k);
+        if (der != null) {
+            der.inOrder(lista);
         }
     }
-    public K getKey() {
-        return this.key;
-    }
-
-
-    public V getValue() {
-        return this.value;
-    }
-
-    public void setValue(V value) {
-        this.value = value;
-    }
-
-    public Nodo_arbol<K, V> getLeft() {
-        return this.left;
-    }
-
-    public void setLeft(Nodo_arbol<K, V> left) {
-        this.left = left;
-    }
-
-    public Nodo_arbol<K, V> getRight() {
-        return this.right;
-    }
-
-    public void setRight(Nodo_arbol<K, V> right) {
-        this.right = right;
-    }
-    
 
 }
