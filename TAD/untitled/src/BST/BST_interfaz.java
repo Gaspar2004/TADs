@@ -1,5 +1,8 @@
 package BST;
-import linked_list.linked_list_interface;
+import java.util.List;
+
+import linked_list.Linked_list;
+
 public interface BST_interfaz <K,T>{
     void add(K key, T value);
     T find(K key);
@@ -7,7 +10,7 @@ public interface BST_interfaz <K,T>{
     void remove(K key);
     K findMin();
     K findMax();
-    linked_list_interface<K> inOrder();
-    //List<K> preOrder();
-    //List<K> postOrder();
+    public Linked_list inOrder();
+    public Linked_list preOrder();
+    public Linked_list postOrder();
 }

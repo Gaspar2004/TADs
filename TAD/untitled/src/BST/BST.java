@@ -1,7 +1,10 @@
 package BST;
 
 import java.text.BreakIterator;
+import java.util.LinkedList;
+import java.util.List;
 
+import linked_list.Linked_list;
 import linked_list.linked_list_interface;
 
 public class BST <K extends Comparable<K>, T> implements BST_interfaz<K,T>{
@@ -14,34 +17,22 @@ public class BST <K extends Comparable<K>, T> implements BST_interfaz<K,T>{
     public void add(K key, T value) {
         Nodo_arbol<K,T> elemento_a_agregar = new Nodo_arbol<>(key, value);
         if(root == null){
-            System.out.println("primero - "+ key);
+            //System.out.println("primero - "+ key);
             root = elemento_a_agregar;
         }else {
-            System.out.println("primero - "+ root.getKey());
+            //System.out.println("primero - "+ root.getKey());
             Nodo_arbol<K,T> aux = root;
             while (aux != null) {
                 // Comprobamos si tenemos que insertarlo ya
                 // Comprobamos si nodo hoja
-                if (aux.getRight() == null && aux.getRight() == null) {
-                    if (aux.getKey().compareTo(key) < 0) {
-                        // Derecha
-                        System.out.println(key + " 1Lo insertamos a la derecha de: " + aux.getKey());
-                        aux.setRight(elemento_a_agregar);
-                        aux = null;
-                    } else {
-                        // Izquierda
-                        System.out.println(key + " 1Lo insertamos a la izquierda de: " + aux.getKey());
-                        aux.setLeft(elemento_a_agregar);
-                        aux = null;
-                    }
-                } else if (aux.getKey().compareTo(key)<0 && aux.getLeft() == null) {
+                if (aux.getKey().compareTo(key)<0 && aux.getRight() == null) {
                     // Lo insertamos a la derecha
-                    System.out.println(key + " 2Lo insertamos a la derecha de: " + aux.getKey());
+                    //System.out.println(key + " 2Lo insertamos a la derecha de: " + aux.getKey());
                     aux.setRight(elemento_a_agregar);
                     aux = null;
-                } else if (aux.getKey().compareTo(key)>0 && aux.getRight() == null) {
+                } else if (aux.getKey().compareTo(key)>0 && aux.getLeft() == null) {
                     // Lo insertamos a la izquierda
-                    System.out.println(key + " 2Lo insertamos a la izquierda de: " + aux.getKey());
+                    //System.out.println(key + " 2Lo insertamos a la izquierda de: " + aux.getKey());
                     aux.setLeft(elemento_a_agregar);
                     aux = null;
                 } else {
@@ -253,9 +244,75 @@ public class BST <K extends Comparable<K>, T> implements BST_interfaz<K,T>{
     }
 
     @Override
-    public linked_list_interface<K> inOrder() {
-        return null;
+    public Linked_list inOrder() {
+        Linked_list<K> listaInOrder = new Linked_list<K>();
+
+		if (root == null) 
+            return null;
+        else{
+            inOrderRecursivo(root, listaInOrder);
+            return listaInOrder;
+        }
     }
+
+    private void inOrderRecursivo(Nodo_arbol<K,T> nodo, Linked_list<K> listaInOrder) {
+        if (nodo.getLeft() != null) {
+            inOrderRecursivo(nodo.getLeft(), listaInOrder);
+        }
+        listaInOrder.add(nodo.getKey());
+        if (nodo.getRight() != null) {
+            inOrderRecursivo(nodo.getRight(), listaInOrder);
+        }
+    }
+
+    @Override
+    public Linked_list preOrder() {
+        Linked_list<K> listaInOrder = new Linked_list<K>();
+
+		if (root == null) 
+            return null;
+        else{
+            preOrderRecursivo(root, listaInOrder);
+            return listaInOrder;
+        }
+    }
+
+    private void preOrderRecursivo(Nodo_arbol<K,T> nodo, Linked_list<K> listaInOrder) {
+        listaInOrder.add(nodo.getKey());
+        if (nodo.getLeft() != null) {
+            preOrderRecursivo(nodo.getLeft(), listaInOrder);
+        }
+        
+        if (nodo.getRight() != null) {
+            preOrderRecursivo(nodo.getRight(), listaInOrder);
+        }
+    }
+
+    @Override
+    public Linked_list postOrder() {
+        Linked_list<K> lista = new Linked_list<K>();
+
+		if (root == null) 
+            return null;
+        else{
+            postOrderRecursivo(root, lista);
+            return lista;
+        }
+    }
+
+    private void postOrderRecursivo(Nodo_arbol<K,T> nodo, Linked_list<K> lista) {
+        
+        if (nodo.getLeft() != null) {
+            postOrderRecursivo(nodo.getLeft(), lista);
+        }
+        
+        if (nodo.getRight() != null) {
+            postOrderRecursivo(nodo.getRight(), lista);
+        }
+        lista.add(nodo.getKey());
+    }
+
+    
 
 
 }
